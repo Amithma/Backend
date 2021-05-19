@@ -24,7 +24,7 @@ namespace AuthDemo.Models
         public int Marks { get; set; }
         public string LD { get; set; }
         public string Type { get; set; }
-
+  
         [ForeignKey("Module")]
 
         public string ModuleId { get; set; }

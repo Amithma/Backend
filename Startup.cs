@@ -1,4 +1,4 @@
-using AuthDemo.Data;
+ using AuthDemo.Data;
 using AuthDemo.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,7 +29,7 @@ namespace AuthDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             // DB Context
 
             services.AddDbContext<DBContext>(

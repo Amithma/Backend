@@ -4,14 +4,16 @@ using AuthDemo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AuthDemo.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20210425082149_initial2")]
+    partial class initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,14 +68,14 @@ namespace AuthDemo.Migrations
                     b.Property<string>("LOID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Lmarks")
-                        .HasColumnType("int");
-
                     b.Property<string>("ModuleId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("marks")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -241,22 +243,22 @@ namespace AuthDemo.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5a31ed78-3ab1-49a1-82b5-446972644599",
-                            ConcurrencyStamp = "bc58a7fb-60b5-4b85-8862-cee98ee5103e",
+                            Id = "8fc602cc-3566-4bbb-9f29-14d54c30d120",
+                            ConcurrencyStamp = "a29f8302-60e3-406a-b902-2504d8a1ee00",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "d753e41c-af9a-4a72-8714-b0e2e2a3421d",
-                            ConcurrencyStamp = "efd955f7-a58f-4fc6-81df-952e3c923482",
+                            Id = "ebf8a620-ddcc-4250-927e-7ef324c92a31",
+                            ConcurrencyStamp = "86d4a98e-44f9-472f-aadd-8d79100cb4b8",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "5ab76193-9b0f-42b5-986b-f416d82fb9a9",
-                            ConcurrencyStamp = "47d6d95d-6e5e-499f-8d9e-9c034b72599e",
+                            Id = "7abff817-cb0d-4f2e-acd9-aacc365a8d5b",
+                            ConcurrencyStamp = "4ed30f11-abbe-4209-bda6-12786b5792cf",
                             Name = "Lecturer",
                             NormalizedName = "LECTURER"
                         });

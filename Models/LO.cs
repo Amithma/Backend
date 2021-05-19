@@ -14,12 +14,14 @@ namespace AuthDemo.Models
         [Key]
         public int ID { get; set; }
         public String LOID { get; set; }
+        public int Lmarks { get; set; }
         public string Name { get; set; }
         [ForeignKey("Module")]
         public string ModuleId { get; set; }
         public Module Module { get; set; }
-
-        public ICollection<PO> POs { get; set; }
+        public LO()
+        { this.POs = new HashSet<PO>(); }
+        public virtual ICollection<PO> POs { get; set; }
 
 
     }

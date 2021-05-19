@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthDemo.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210327080343_initial")]
-    partial class initial
+    [Migration("20210425083053_initia2")]
+    partial class initia2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,6 +68,9 @@ namespace AuthDemo.Migrations
                     b.Property<string>("LOID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Lmarks")
+                        .HasColumnType("int");
+
                     b.Property<string>("ModuleId")
                         .HasColumnType("nvarchar(450)");
 
@@ -118,8 +121,6 @@ namespace AuthDemo.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("POID");
-
-                    b.HasIndex("ID");
 
                     b.ToTable("POs");
                 });
@@ -206,6 +207,21 @@ namespace AuthDemo.Migrations
                     b.ToTable("WeatherForecasts");
                 });
 
+            modelBuilder.Entity("LOPO", b =>
+                {
+                    b.Property<int>("LOsID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("POsPOID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LOsID", "POsPOID");
+
+                    b.HasIndex("POsPOID");
+
+                    b.ToTable("LOPO");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -227,22 +243,22 @@ namespace AuthDemo.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5a4c4e82-4cb4-44bc-ab4c-97b7944e8025",
-                            ConcurrencyStamp = "529bb7c2-9e0c-4886-87f2-386c5f33d51f",
+                            Id = "5a31ed78-3ab1-49a1-82b5-446972644599",
+                            ConcurrencyStamp = "bc58a7fb-60b5-4b85-8862-cee98ee5103e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "6b8670c4-5a8d-40aa-a8eb-42116fdd3347",
-                            ConcurrencyStamp = "99d2c48a-363b-4f70-a833-6f4b569fcc94",
+                            Id = "d753e41c-af9a-4a72-8714-b0e2e2a3421d",
+                            ConcurrencyStamp = "efd955f7-a58f-4fc6-81df-952e3c923482",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "f2dee7bf-b58a-4a6c-b730-4ba0ed3909e6",
-                            ConcurrencyStamp = "9cd530d4-19c7-4472-a609-1e1b12ceb9f4",
+                            Id = "5ab76193-9b0f-42b5-986b-f416d82fb9a9",
+                            ConcurrencyStamp = "47d6d95d-6e5e-499f-8d9e-9c034b72599e",
                             Name = "Lecturer",
                             NormalizedName = "LECTURER"
                         });
@@ -283,20 +299,19 @@ namespace AuthDemo.Migrations
                     b.Navigation("Module");
                 });
 
-            modelBuilder.Entity("AuthDemo.Models.PO", b =>
+            modelBuilder.Entity("LOPO", b =>
                 {
-                    b.HasOne("AuthDemo.Models.LO", "LO")
-                        .WithMany("POs")
-                        .HasForeignKey("ID")
+                    b.HasOne("AuthDemo.Models.LO", null)
+                        .WithMany()
+                        .HasForeignKey("LOsID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LO");
-                });
-
-            modelBuilder.Entity("AuthDemo.Models.LO", b =>
-                {
-                    b.Navigation("POs");
+                    b.HasOne("AuthDemo.Models.PO", null)
+                        .WithMany()
+                        .HasForeignKey("POsPOID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AuthDemo.Models.Module", b =>

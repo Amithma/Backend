@@ -49,6 +49,20 @@ namespace AuthDemo.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "POs",
+                columns: table => new
+                {
+                    POID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    POName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ID = table.Column<int>(type: "int", nullable: false),
+                    LOID = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_POs", x => x.POID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -113,26 +127,6 @@ namespace AuthDemo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "POs",
-                columns: table => new
-                {
-                    POID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    POName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ID = table.Column<int>(type: "int", nullable: false),
-                    LOID = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_POs", x => x.POID);
-                    table.ForeignKey(
-                        name: "FK_POs_LOs_ID",
-                        column: x => x.ID,
-                        principalTable: "LOs",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AsComponents",
                 columns: table => new
                 {
@@ -163,20 +157,44 @@ namespace AuthDemo.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "IdentityRole",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "5a4c4e82-4cb4-44bc-ab4c-97b7944e8025", "529bb7c2-9e0c-4886-87f2-386c5f33d51f", "User", "USER" });
+            migrationBuilder.CreateTable(
+                name: "LOPO",
+                columns: table => new
+                {
+                    LOsID = table.Column<int>(type: "int", nullable: false),
+                    POsPOID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LOPO", x => new { x.LOsID, x.POsPOID });
+                    table.ForeignKey(
+                        name: "FK_LOPO_LOs_LOsID",
+                        column: x => x.LOsID,
+                        principalTable: "LOs",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LOPO_POs_POsPOID",
+                        column: x => x.POsPOID,
+                        principalTable: "POs",
+                        principalColumn: "POID",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "IdentityRole",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "6b8670c4-5a8d-40aa-a8eb-42116fdd3347", "99d2c48a-363b-4f70-a833-6f4b569fcc94", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "1ebdb98e-59a0-4654-baf4-39928c8eb3d7", "d3c2b367-feab-4a7a-b3b6-80bf6f8ec87f", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "IdentityRole",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "f2dee7bf-b58a-4a6c-b730-4ba0ed3909e6", "9cd530d4-19c7-4472-a609-1e1b12ceb9f4", "Lecturer", "LECTURER" });
+                values: new object[] { "acf517f6-1da3-47a4-85cd-73c937a67972", "1b7f5c33-4495-41f9-b0f4-ab3d966a2cb4", "Administrator", "ADMINISTRATOR" });
+
+            migrationBuilder.InsertData(
+                table: "IdentityRole",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "213af392-80ae-41cf-9871-a57e6de5d487", "41a081ed-82e9-4e2f-9e02-c584f6f9711e", "Lecturer", "LECTURER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AsComponents_ModuleId",
@@ -189,14 +207,14 @@ namespace AuthDemo.Migrations
                 column: "POID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LOPO_POsPOID",
+                table: "LOPO",
+                column: "POsPOID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LOs_ModuleId",
                 table: "LOs",
                 column: "ModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_POs_ID",
-                table: "POs",
-                column: "ID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,16 +229,19 @@ namespace AuthDemo.Migrations
                 name: "IdentityUserRole<string>");
 
             migrationBuilder.DropTable(
+                name: "LOPO");
+
+            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "WeatherForecasts");
 
             migrationBuilder.DropTable(
-                name: "POs");
+                name: "LOs");
 
             migrationBuilder.DropTable(
-                name: "LOs");
+                name: "POs");
 
             migrationBuilder.DropTable(
                 name: "Modules");

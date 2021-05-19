@@ -36,7 +36,7 @@ namespace AuthDemo.Controllers
 
 
             var pO = await _context.POs
-               .Include(i => i.LO)
+               .Include(i => i.LOs)
                .Where(i => i.ID == id)
                .FirstOrDefaultAsync();
 
