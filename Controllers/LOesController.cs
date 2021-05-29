@@ -23,22 +23,21 @@ namespace AuthDemo.Controllers
 
         // GET: api/LOes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LO>>> GetLOs(string id)
+        public async Task<ActionResult<IEnumerable<LO>>> GetLOs(String id)
         {
-
             return await _context.LOs.Where(s => s.ModuleId == id).ToListAsync();
-
         }
 
         // GET: api/LOes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<LO>> GetLO(string id)
         {
-
             var lO = await _context.LOs
                .Include(i => i.Module)
                .Where(i => i.ModuleId == id)
                .FirstOrDefaultAsync();
+
+
 
             if (lO == null)
             {

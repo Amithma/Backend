@@ -37,7 +37,7 @@ namespace AuthDemo.Controllers
             var lO = await _context.LOs.FindAsync(id);
 
             if (lO == null)
-            { 
+            {
                 return NotFound();
             }
 
@@ -115,6 +115,10 @@ namespace AuthDemo.Controllers
 
             return NoContent();
         }
+
+
+
+
 
 
         // DELETE: api/LOes1/5

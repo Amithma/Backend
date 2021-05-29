@@ -12,33 +12,27 @@ namespace AuthDemo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class POesController : ControllerBase
+    public class POes1Controller : ControllerBase
     {
         private readonly DBContext _context;
 
-        public POesController(DBContext context)
+        public POes1Controller(DBContext context)
         {
             _context = context;
         }
 
-        // GET: api/POes
+        // GET: api/POes1
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PO>>> GetPOs( int id)
+        public async Task<ActionResult<IEnumerable<PO>>> GetPOs()
         {
-            return await _context.POs.Where(s => s.ID == id).ToListAsync();
-
+            return await _context.POs.ToListAsync();
         }
 
-        // GET: api/POes/5
+        // GET: api/POes1/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PO>> GetPO(int id)
+        public async Task<ActionResult<PO>> GetPO(string id)
         {
-
-
-            var pO = await _context.POs
-               .Include(i => i.LO)
-               .Where(i => i.ID == id)
-               .FirstOrDefaultAsync();
+            var pO = await _context.POs.FindAsync(id);
 
             if (pO == null)
             {
@@ -48,7 +42,7 @@ namespace AuthDemo.Controllers
             return pO;
         }
 
-        // PUT: api/POes/5
+        // PUT: api/POes1/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPO(string id, PO pO)
@@ -79,7 +73,7 @@ namespace AuthDemo.Controllers
             return NoContent();
         }
 
-        // POST: api/POes
+        // POST: api/POes1
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PO>> PostPO(PO pO)
@@ -104,7 +98,7 @@ namespace AuthDemo.Controllers
             return CreatedAtAction("GetPO", new { id = pO.POID }, pO);
         }
 
-        // DELETE: api/POes/5
+        // DELETE: api/POes1/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePO(string id)
         {

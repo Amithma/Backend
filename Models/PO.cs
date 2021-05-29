@@ -17,12 +17,7 @@ namespace AuthDemo.Models
         [ForeignKey("LO")]
         public int ID { get; set; }
         public string LOID { get; set; }
-        public PO()
-        {
-            this.LOs = new HashSet<LO>();
-        }
-        public virtual ICollection<LO> LOs { get; set; }
-    
+        public LO LO { get; set; }
 
         public ICollection<AsComponent> AsComponents { get; set; }
         

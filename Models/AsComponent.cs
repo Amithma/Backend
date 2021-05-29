@@ -20,13 +20,12 @@ namespace AuthDemo.Models
         public string LOID { get; set; }
 
         [ForeignKey("POID")]
-        public string? POID { get; set; }
+        public string POID { get; set; }
         public int Marks { get; set; }
         public string LD { get; set; }
         public string Type { get; set; }
-  
+        public int lid { get; set; }
         [ForeignKey("Module")]
-
         public string ModuleId { get; set; }
         public Module Module { get; set; }
 

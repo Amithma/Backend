@@ -12,31 +12,27 @@ namespace AuthDemo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AsComponentsController : ControllerBase
+    public class AsComponents1Controller : ControllerBase
     {
         private readonly DBContext _context;
 
-        public AsComponentsController(DBContext context)
+        public AsComponents1Controller(DBContext context)
         {
             _context = context;
         }
 
-        // GET: api/AsComponents
+        // GET: api/AsComponents1
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AsComponent>>> GetAsComponents(string id)
+        public async Task<ActionResult<IEnumerable<AsComponent>>> GetAsComponents()
         {
-            return await _context.AsComponents.Where(s => s.ModuleId == id).ToListAsync();
-
+            return await _context.AsComponents.ToListAsync();
         }
 
-        // GET: api/AsComponents/5
+        // GET: api/AsComponents1/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AsComponent>> GetAsComponent(string id)
+        public async Task<ActionResult<AsComponent>> GetAsComponent(int id)
         {
-            var asComponent = await _context.AsComponents
-                .Include(i => i.Module)
-                .Where(i => i.ModuleId == id)
-                .FirstOrDefaultAsync();
+            var asComponent = await _context.AsComponents.FindAsync(id);
 
             if (asComponent == null)
             {
@@ -46,7 +42,7 @@ namespace AuthDemo.Controllers
             return asComponent;
         }
 
-        // PUT: api/AsComponents/5
+        // PUT: api/AsComponents1/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsComponent(int id, AsComponent asComponent)
@@ -77,7 +73,7 @@ namespace AuthDemo.Controllers
             return NoContent();
         }
 
-        // POST: api/AsComponents
+        // POST: api/AsComponents1
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<AsComponent>> PostAsComponent(AsComponent asComponent)
@@ -88,7 +84,7 @@ namespace AuthDemo.Controllers
             return CreatedAtAction("GetAsComponent", new { id = asComponent.AsID }, asComponent);
         }
 
-        // DELETE: api/AsComponents/5
+        // DELETE: api/AsComponents1/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsComponent(int id)
         {

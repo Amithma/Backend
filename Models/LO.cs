@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AuthDemo.Models
 {
+
     public class LO
     {
 
@@ -25,4 +26,6 @@ namespace AuthDemo.Models
 
 
     }
+
 }
+
